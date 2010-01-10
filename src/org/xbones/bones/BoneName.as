@@ -14,5 +14,13 @@ package org.xbones.bones
          * Name of the Label bone.
          */
         public static const XLABEL:String = "XLabel";
+        /**
+         * Name of the CheckBox bone.
+         */
+        public static const XCheckBox:String = "XCheckBox";
+        /**
+         * Name of the RadioButton bone.
+         */
+        public static const XRadioButton:String = "XRadioButton";
     }
 }

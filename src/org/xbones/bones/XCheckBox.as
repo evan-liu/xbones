@@ -1,8 +1,9 @@
 package org.xbones.bones
 {
-    import org.xbones.core.IXButton;
+    import org.xbones.core.IXCheckBox;
+    import org.xbones.core.IXSelectableSkinner;
     import org.xbones.core.IXSkinner;
-    import org.xbones.skins.XReflectionSkinner;
+    import org.xbones.skins.XReflectionSelectableSkinner;
 
     import flash.display.DisplayObject;
     import flash.display.Sprite;
@@ -10,78 +11,70 @@ package org.xbones.bones
     import flash.filters.GlowFilter;
     import flash.text.TextFormat;
     /**
-     * The Button bone (control).
+     * The CheckBox bone.
      * @author eidiot
      */
-    public class XButton extends Sprite implements IXButton
+    public class XCheckBox extends Sprite implements IXCheckBox
     {
-        //======================================================================
-        //  Class constants
-        //======================================================================
-        private static const LABEL_MARGIN:int = 2;
-        private static const LABEL_DISABLED_ALPHA:Number = 0.3;
         //======================================================================
         //  Constructor
         //======================================================================
         /**
-         * Construct a <code>XButton</code>.
-         * @param label     Label text of the button bone.
-         * @param skinner   Skinner of the Button bone.
+         * Construct a <code>XCheckBox</code>.
+         * @param label     Label text of the CheckBox bone.
+         * @param skinner   Skinner of the CheckBox bone.
          */
-        public function XButton(label:String = "", skinner:IXSkinner = null)
+        public function XCheckBox(label:String = "Label",
+                                  selected:Boolean = false,
+                                  skinner:IXSelectableSkinner = null)
         {
             super();
+            _selected = selected;
             initializeSkinner(skinner);
             labelText = label;
             enabled = true;
             //
             buttonMode = true;
             mouseChildren = false;
+            //
+            addEventListener(MouseEvent.CLICK, clickHandler);
         }
         //======================================================================
         //  Variables
         //======================================================================
-        private var skinner:IXSkinner;
+        private var normalSkinner:IXSkinner;
+        private var selectedSkinner:IXSkinner;
+        private var currentSkinner:IXSkinner;
         private var currentSkin:DisplayObject;
         private var labelInstance:XLabel;
         //======================================================================
-        //  Overridden properties: DisplayObject
+        //  Properties: IXCheckBox
         //======================================================================
         //------------------------------
-        //  width
+        //  selected
         //------------------------------
-        private var _width:Number = -1;
+        private var _selected:Boolean = false;
         /**
          * @inheritDoc
          */
-        override public function set width(value:Number):void
+        public function get selected():Boolean
         {
-            _width = value;
-            if (currentSkin)
-            {
-                currentSkin.width = value;
-            }
-            updateDisplay();
+            return _selected;
         }
-        //------------------------------
-        //  height
-        //------------------------------
-        private var _height:Number = -1;
         /**
-         * @inheritDoc
+         * @private
          */
-        override public function set height(value:Number):void
+        public function set selected(value:Boolean):void
         {
-            _height = value;
-            if (currentSkin)
+            if (value == _selected)
             {
-                currentSkin.height = value;
+                return;
             }
-            updateDisplay();
+            _selected = value;
+            currentSkinner = _selected ? selectedSkinner : normalSkinner;
+            updateSkin(checkMouseOver() ? currentSkinner.overSkin :
+                                          currentSkinner.upSkin);
         }
-        //======================================================================
-        //  Properties: IXButton
-        //======================================================================
         //------------------------------
         //  enabled
         //------------------------------
@@ -103,16 +96,16 @@ package org.xbones.bones
                 return;
             }
             _enabled = value;
-            mouseEnabled = value;
+            mouseEnabled = _enabled;
             if (_enabled)
             {
-                updateSkin(checkMouseOver() ? skinner.overSkin : skinner.upSkin);
+                updateSkin(checkMouseOver() ? currentSkinner.overSkin :
+                                              currentSkinner.upSkin);
                 addHandlers();
                 renderLabelToEnabled();
-            }
-            else
+            } else
             {
-                updateSkin(skinner.disabledSkin);
+                updateSkin(currentSkinner.disabledSkin);
                 removeHandlers();
                 renderLabelToDisabled();
             }
@@ -120,31 +113,31 @@ package org.xbones.bones
         //------------------------------
         //  labelText
         //------------------------------
-        private var _labelText:String = "";
         /**
          * @inheritDoc
          */
         public function get labelText():String
         {
-            return _labelText;
+            if (labelInstance)
+            {
+                return labelInstance.labelText;
+            }
+            return "";
         }
         /**
          * @private
          */
         public function set labelText(value:String):void
         {
-            if (value == _labelText)
+            if (labelInstance)
             {
-                return;
-            }
-            _labelText = value;
-            if (value)
-            {
-                updateLabel();
+                labelInstance.labelText = value;
             }
             else
             {
-                removeLabel();
+                labelInstance = new XLabel(value);
+                addChild(labelInstance);
+                updateDisplay();
             }
         }
         //------------------------------
@@ -175,14 +168,17 @@ package org.xbones.bones
         //======================================================================
         //  Private methods
         //======================================================================
-        private function initializeSkinner(value:IXSkinner):void
+        private function initializeSkinner(value:IXSelectableSkinner):void
         {
-            skinner = value;
+            var skinner:IXSelectableSkinner = value;
             if (!skinner)
             {
-                skinner = new XReflectionSkinner(BoneName.XBUTTON);
+                skinner = new XReflectionSelectableSkinner(BoneName.XCheckBox);
             }
-            updateSkin(skinner.upSkin);
+            normalSkinner = skinner.normalSkinner;
+            selectedSkinner = skinner.selectedSkinner;
+            currentSkinner = _selected ? selectedSkinner : normalSkinner;
+            updateSkin(currentSkinner.upSkin);
         }
         private function updateSkin(skin:DisplayObject):void
         {
@@ -200,46 +196,11 @@ package org.xbones.bones
             currentSkin = skin;
             if (!currentSkin)
             {
-                currentSkin = skinner.upSkin;
+                currentSkin = currentSkinner.upSkin;
             }
-            if (!currentSkin) {
-                return;
-            }
-            addChildAt(currentSkin, 0);
-            if (_width >= 0)
+            if (currentSkin)
             {
-                currentSkin.width = _width;
-            }
-            if (_height >= 0)
-            {
-                currentSkin.height = _height;
-            }
-        }
-        private function updateLabel():void
-        {
-            if (labelInstance)
-            {
-                labelInstance.labelText = _labelText;
-            }
-            else
-            {
-                labelInstance = new XLabel(_labelText);
-            }
-            if (labelInstance.parent != this)
-            {
-                addChild(labelInstance);
-            }
-            if (!_enabled)
-            {
-                renderLabelToDisabled();
-            }
-            updateDisplay();
-        }
-        private function removeLabel():void
-        {
-            if (labelInstance && labelInstance.parent)
-            {
-                labelInstance.parent.removeChild(labelInstance);
+                addChild(currentSkin);
             }
         }
         private function updateDisplay():void
@@ -248,35 +209,15 @@ package org.xbones.bones
             {
                 return;
             }
-            labelInstance.y = (currentSkin.height - labelInstance.height) / 2;
-            labelInstance.autoSize = true;
-            const MAX_LABEL_WIDTH:Number = currentSkin.width - LABEL_MARGIN * 2;
-            if (labelInstance.width > MAX_LABEL_WIDTH)
-            {
-                labelInstance.x = LABEL_MARGIN;
-                labelInstance.width = MAX_LABEL_WIDTH;
-            }
-            else
-            {
-                labelInstance.x = (currentSkin.width - labelInstance.width) / 2;
-            }
-            const MAX_LABEL_HEIGHT:Number = currentSkin.height;
-            if (labelInstance.height > MAX_LABEL_HEIGHT)
-            {
-                labelInstance.y = 0;
-                labelInstance.height = MAX_LABEL_HEIGHT;
-            }
-            else
-            {
-                labelInstance.y = (currentSkin.height - labelInstance.height) / 2;
-            }
+            labelInstance.x = currentSkin.width + 5;
+            labelInstance.y = (currentSkin.height - labelInstance.height + 4) / 2;
         }
         private function renderLabelToDisabled():void
         {
             if (labelInstance)
             {
                 labelInstance.filters = [new GlowFilter(0x000000, 0)];
-                labelInstance.alpha = LABEL_DISABLED_ALPHA;
+                labelInstance.alpha = 0.3;
             }
         }
         private function renderLabelToEnabled():void
@@ -304,11 +245,17 @@ package org.xbones.bones
         //======================================================================
         //  Event handlers
         //======================================================================
+        private function clickHandler(event:MouseEvent):void
+        {
+            if (_enabled) {
+                selected = !selected;
+            }
+        }
         private function rollOverHandler(event:MouseEvent):void
         {
             if (_enabled)
             {
-                updateSkin(skinner.overSkin);
+                updateSkin(currentSkinner.overSkin);
                 addEventListener(MouseEvent.ROLL_OUT, rollOutHandler);
             }
         }
@@ -317,7 +264,7 @@ package org.xbones.bones
             removeEventListener(MouseEvent.ROLL_OUT, rollOutHandler);
             if (_enabled)
             {
-                updateSkin(skinner.upSkin);
+                updateSkin(currentSkinner.upSkin);
             }
         }
         private function mouseUpHandler(event:MouseEvent):void
@@ -325,14 +272,15 @@ package org.xbones.bones
             if (_enabled)
             {
                 stage.removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-                updateSkin(checkMouseOver() ? skinner.overSkin : skinner.upSkin);
+                updateSkin(checkMouseOver() ? currentSkinner.overSkin :
+                                              currentSkinner.upSkin);
             }
         }
         private function mouseDownHandler(event:MouseEvent):void
         {
             if (_enabled)
             {
-                updateSkin(skinner.downSkin);
+                updateSkin(currentSkinner.downSkin);
             }
             stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
         }

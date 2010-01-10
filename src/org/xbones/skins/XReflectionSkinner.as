@@ -1,6 +1,7 @@
 package org.xbones.skins
 {
-	import org.xbones.core.IXSkinner;
+    import org.xbones.core.IXSkinner;
+
     import flash.display.DisplayObject;
     import flash.system.ApplicationDomain;
     /**
@@ -15,8 +16,8 @@ package org.xbones.skins
         /**
          * Construct a <code>ReflectionControlSkin</code>.
          * @param boneName          Name of the bone like "Button".
-         * @param applicationDomain <code>ApplicationDomain</code> to get definitions
-         *                          of the skins.
+         * @param applicationDomain <code>ApplicationDomain</code> to get
+         *                          definitions of the skins.
          */
         public function XReflectionSkinner(boneName:String,
                                      applicationDomain:ApplicationDomain = null)
@@ -85,11 +86,14 @@ package org.xbones.skins
         {
             if (!applicationDomain.hasDefinition(skinName))
             {
+                trace("[Warn] [XReflectionSkinner/createSkin] No " + skinName);
                 return null;
             }
-            var skinClass:Class = applicationDomain.getDefinition(skinName) as Class;
+            var skinClass:Class =
+                            applicationDomain.getDefinition(skinName) as Class;
             if (!skinClass)
             {
+                trace("[Warn] [XReflectionSkinner/createSkin] No " + skinName);
                 return null;
             }
             return new skinClass() as DisplayObject;
