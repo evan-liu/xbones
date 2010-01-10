@@ -1,12 +1,14 @@
-package org.xbones.bones {
-  /**
-   * Enumeration for bone names.
-   * @author eidiot
-   */
-  public class BoneName {
+package org.xbones.bones
+{
     /**
-     * Name of the Button bone.
+     * Enumeration for bone names.
+     * @author eidiot
      */
-    public static const BUTTON:String = "Button";
-  }
+    public class BoneName
+    {
+        /**
+         * Name of the Button bone.
+         */
+        public static const BUTTON:String = "Button";
+    }
 }
