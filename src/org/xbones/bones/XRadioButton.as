@@ -1,33 +1,44 @@
 package org.xbones.bones
 {
-    import org.xbones.core.IXCheckBox;
+    import org.xbones.core.IXRadioButton;
     import org.xbones.core.IXSelectableSkinner;
     import org.xbones.core.IXSkinner;
     import org.xbones.skins.XReflectionSelectableSkinner;
 
     import flash.display.DisplayObject;
     import flash.display.Sprite;
+    import flash.events.Event;
     import flash.events.MouseEvent;
     import flash.filters.GlowFilter;
     import flash.text.TextFormat;
+
+    //----------------------------------
+    //  Events
+    //----------------------------------
     /**
-     * The CheckBox bone.
+     * Dispatched when the selected state changes.
+     * @eventType flash.events.Event.CHANGE
+     */
+    [Event(name="change", type="flash.events.Event")]
+
+    /**
+     * The RadioButton bone.
      * @author eidiot
      */
-    public class XCheckBox extends Sprite implements IXCheckBox
+    public class XRadioButton extends Sprite implements IXRadioButton
     {
         //======================================================================
         //  Constructor
         //======================================================================
         /**
-         * Construct a <code>XCheckBox</code>.
-         * @param label     Label text of the CheckBox bone.
-         * @param skinner   Skinner of the CheckBox bone.
+         * Construct a <code>XRadioButton</code>.
+         * @param label     Label text of the RadioButton bone.
+         * @param skinner   Skinner of the RadioButton bone.
          */
-        public function XCheckBox(label:String = "Label",
-                                  selected:Boolean = false,
-                                  data:Object = null,
-                                  skinner:IXSelectableSkinner = null)
+        public function XRadioButton(label:String = "Label",
+                                     selected:Boolean = false,
+                                     data:Object = null,
+                                     skinner:IXSelectableSkinner = null)
         {
             super();
             _data = data;
@@ -50,7 +61,7 @@ package org.xbones.bones
         private var currentSkin:DisplayObject;
         private var labelInstance:XLabel;
         //======================================================================
-        //  Properties: IXCheckBox
+        //  Properties: IXRadioButton
         //======================================================================
         //------------------------------
         //  data
@@ -61,6 +72,10 @@ package org.xbones.bones
          */
         public function get data():Object
         {
+            if (_data == null)
+            {
+                return labelText;
+            }
             return _data;
         }
         /**
@@ -94,6 +109,7 @@ package org.xbones.bones
             currentSkinner = _selected ? selectedSkinner : normalSkinner;
             updateSkin(checkMouseOver() ? currentSkinner.overSkin :
                                           currentSkinner.upSkin);
+            dispatchEvent(new Event(Event.CHANGE));
         }
         //------------------------------
         //  enabled
@@ -194,7 +210,7 @@ package org.xbones.bones
             var skinner:IXSelectableSkinner = value;
             if (!skinner)
             {
-                skinner = new XReflectionSelectableSkinner(BoneName.XCheckBox);
+                skinner = new XReflectionSelectableSkinner(BoneName.XRadioButton);
             }
             normalSkinner = skinner.normalSkinner;
             selectedSkinner = skinner.selectedSkinner;
@@ -268,9 +284,9 @@ package org.xbones.bones
         //======================================================================
         private function clickHandler(event:MouseEvent):void
         {
-            if (_enabled)
+            if (_enabled && !_selected)
             {
-                selected = !selected;
+                selected = true;
             }
         }
         private function rollOverHandler(event:MouseEvent):void
