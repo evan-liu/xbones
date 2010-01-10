@@ -1,8 +1,10 @@
 package org.xbones.bones
 {
-    import org.xbones.core.IXCheckBox;
+    import org.xbones.core.IXInteractiveBone;
+    import org.xbones.core.IXSelectableBone;
     import org.xbones.core.IXSelectableSkinner;
     import org.xbones.core.IXSkinner;
+    import org.xbones.core.IXWithLabelBone;
     import org.xbones.skins.XReflectionSelectableSkinner;
 
     import flash.display.DisplayObject;
@@ -14,7 +16,8 @@ package org.xbones.bones
      * The CheckBox bone.
      * @author eidiot
      */
-    public class XCheckBox extends Sprite implements IXCheckBox
+    public class XCheckBox extends Sprite implements IXInteractiveBone,
+                                               IXWithLabelBone, IXSelectableBone
     {
         //======================================================================
         //  Constructor
@@ -50,7 +53,7 @@ package org.xbones.bones
         private var currentSkin:DisplayObject;
         private var labelInstance:XLabel;
         //======================================================================
-        //  Properties: IXCheckBox
+        //  Properties
         //======================================================================
         //------------------------------
         //  data
@@ -194,7 +197,7 @@ package org.xbones.bones
             var skinner:IXSelectableSkinner = value;
             if (!skinner)
             {
-                skinner = new XReflectionSelectableSkinner(BoneName.XCheckBox);
+                skinner = new XReflectionSelectableSkinner(XBoneName.XCheckBox);
             }
             normalSkinner = skinner.normalSkinner;
             selectedSkinner = skinner.selectedSkinner;

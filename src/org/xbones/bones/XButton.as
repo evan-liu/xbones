@@ -1,7 +1,8 @@
 package org.xbones.bones
 {
-    import org.xbones.core.IXButton;
+    import org.xbones.core.IXInteractiveBone;
     import org.xbones.core.IXSkinner;
+    import org.xbones.core.IXWithLabelBone;
     import org.xbones.skins.XReflectionSkinner;
 
     import flash.display.DisplayObject;
@@ -13,7 +14,7 @@ package org.xbones.bones
      * The Button bone (control).
      * @author eidiot
      */
-    public class XButton extends Sprite implements IXButton
+    public class XButton extends Sprite implements IXInteractiveBone, IXWithLabelBone
     {
         //======================================================================
         //  Class constants
@@ -80,7 +81,7 @@ package org.xbones.bones
             updateDisplay();
         }
         //======================================================================
-        //  Properties: IXButton
+        //  Properties
         //======================================================================
         //------------------------------
         //  enabled
@@ -180,7 +181,7 @@ package org.xbones.bones
             skinner = value;
             if (!skinner)
             {
-                skinner = new XReflectionSkinner(BoneName.XBUTTON);
+                skinner = new XReflectionSkinner(XBoneName.XBUTTON);
             }
             updateSkin(skinner.upSkin);
         }

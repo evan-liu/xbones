@@ -1,8 +1,10 @@
 package org.xbones.bones
 {
-    import org.xbones.core.IXRadioButton;
+    import org.xbones.core.IXInteractiveBone;
+    import org.xbones.core.IXSelectableBone;
     import org.xbones.core.IXSelectableSkinner;
     import org.xbones.core.IXSkinner;
+    import org.xbones.core.IXWithLabelBone;
     import org.xbones.skins.XReflectionSelectableSkinner;
 
     import flash.display.DisplayObject;
@@ -25,7 +27,8 @@ package org.xbones.bones
      * The RadioButton bone.
      * @author eidiot
      */
-    public class XRadioButton extends Sprite implements IXRadioButton
+    public class XRadioButton extends Sprite implements IXInteractiveBone,
+                                               IXWithLabelBone, IXSelectableBone
     {
         //======================================================================
         //  Constructor
@@ -61,7 +64,7 @@ package org.xbones.bones
         private var currentSkin:DisplayObject;
         private var labelInstance:XLabel;
         //======================================================================
-        //  Properties: IXRadioButton
+        //  Properties
         //======================================================================
         //------------------------------
         //  data
@@ -210,7 +213,7 @@ package org.xbones.bones
             var skinner:IXSelectableSkinner = value;
             if (!skinner)
             {
-                skinner = new XReflectionSelectableSkinner(BoneName.XRadioButton);
+                skinner = new XReflectionSelectableSkinner(XBoneName.XRadioButton);
             }
             normalSkinner = skinner.normalSkinner;
             selectedSkinner = skinner.selectedSkinner;

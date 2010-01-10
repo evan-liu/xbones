@@ -4,7 +4,7 @@ package org.xbones.bones
      * Enumeration for bone names.
      * @author eidiot
      */
-    public class BoneName
+    public class XBoneName
     {
         /**
          * Name of the Button bone.

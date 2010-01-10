@@ -1,7 +1,5 @@
 package org.xbones.core
 {
-    import flash.events.IEventDispatcher;
-
     //----------------------------------
     //  Events
     //----------------------------------
@@ -15,7 +13,7 @@ package org.xbones.core
      * Interface for bone groups.
      * @author eidiot
      */
-    public interface IXBoneGroup extends IEventDispatcher
+    public interface IXBoneGroup extends IXInteractiveBone
     {
         //======================================================================
         //  Properties
@@ -42,17 +40,6 @@ package org.xbones.core
          * @private
          */
         function set selectedValue(value:Object):void;
-        //------------------------------
-        //  enabled
-        //------------------------------
-        /**
-         *  Whether all the bones in this group can accept user interaction.
-         */
-        function get enabled():Boolean;
-        /**
-         *  @private
-         */
-        function set enabled(value:Boolean):void;
         //======================================================================
         //  Public methods
         //======================================================================

@@ -1,10 +1,11 @@
 package org.xbones.core
 {
+    import flash.events.IEventDispatcher;
     /**
      * Interface for interactive bones.
      * @author eidiot
      */
-    public interface IXInteractiveBone
+    public interface IXInteractiveBone extends IEventDispatcher
     {
         //======================================================================
         //  Properties

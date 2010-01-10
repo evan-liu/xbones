@@ -1,7 +1,7 @@
 package org.xbones.core
 {
     /**
-     * Interface for CheckBox bone skinner.
+     * Interface of skinner for selectable bones.
      * @author eidiot
      */
     public interface IXSelectableSkinner

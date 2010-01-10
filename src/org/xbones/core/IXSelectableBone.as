@@ -1,7 +1,5 @@
 package org.xbones.core
 {
-    import flash.events.IEventDispatcher;
-
     //----------------------------------
     //  Events
     //----------------------------------
@@ -15,7 +13,7 @@ package org.xbones.core
      * Interface for selectable bones.
      * @author eidiot
      */
-    public interface IXSelectableBone extends IEventDispatcher
+    public interface IXSelectableBone extends IXInteractiveBone
     {
         //======================================================================
         //  Properties
@@ -42,16 +40,5 @@ package org.xbones.core
          * @private
          */
         function set data(value:Object):void;
-        //------------------------------
-        //  enabled
-        //------------------------------
-        /**
-         *  Whether the bones can accept user interaction.
-         */
-        function get enabled():Boolean;
-        /**
-         *  @private
-         */
-        function set enabled(value:Boolean):void;
     }
 }
