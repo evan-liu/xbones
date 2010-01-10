@@ -1,12 +1,15 @@
 package org.xbones.bones
 {
+    import org.xbones.core.IXWithLabelBone;
+
     import flash.display.Sprite;
     import flash.text.TextField;
+    import flash.text.TextFormat;
     /**
      * The Label bone for displaying a single line of text.
      * @author eidiot
      */
-    public class XLabel extends Sprite
+    public class XLabel extends Sprite implements IXWithLabelBone
     {
         //======================================================================
         //  Constructor
@@ -15,12 +18,17 @@ package org.xbones.bones
          * Construct a <code>XLabel</code>.
          * @param text Text value of the label.
          */
-        public function XLabel(text:String = "")
+        public function XLabel(text:String = "", format:TextFormat = null)
         {
             super();
             textField = new TextField();
             addChild(textField);
-            this.text = text;
+            _labelFormat = format;
+            if (!_labelFormat)
+            {
+                _labelFormat = new TextFormat();
+            }
+            this.labelText = text;
             mouseEnabled = false;
             mouseChildren = false;
         }
@@ -42,36 +50,93 @@ package org.xbones.bones
                 return;
             }
             _width = value;
-            _autoSize = false;
             textField.width = _width;
+            if (_autoSize)
+            {
+                _autoSize = false;
+                if (_height > 0)
+                {
+                    textField.height = _height;
+                }
+            }
+        }
+        //------------------------------
+        //  height
+        //------------------------------
+        private var _height:Number = -1;
+        override public function set height(value:Number):void
+        {
+            if (value == _height)
+            {
+                return;
+            }
+            _height = value;
+            textField.height = _height;
+            if (_autoSize)
+            {
+                _autoSize = false;
+                if (_width > 0)
+                {
+                    textField.width = _width;
+                }
+            }
         }
         //======================================================================
-        //  Properties
+        //  Properties: IXLabeldBone
         //======================================================================
         //------------------------------
-        //  text
+        //  labelFormat
+        //------------------------------
+        private var _labelFormat:TextFormat;
+        /**
+         * @inheritDoc
+         */
+        public function get labelFormat():TextFormat
+        {
+            return _labelFormat;
+        }
+        /**
+         * @private
+         */
+        public function set labelFormat(value:TextFormat):void
+        {
+            if (!value || value == _labelFormat)
+            {
+                return;
+            }
+            _labelFormat = value;
+            textField.defaultTextFormat = _labelFormat;
+            textField.setTextFormat(_labelFormat);
+            if (_autoSize)
+            {
+                textField.width = textField.textWidth + 4;
+                textField.height = textField.textHeight + 4;
+            }
+        }
+        //------------------------------
+        //  labelText
         //------------------------------
         /**
-         * Text of the label.
+         * @inheritDoc
          */
-        public function get text():String
+        public function get labelText():String
         {
             return textField.text;
         }
         /**
          * @private
          */
-        public function set text(value:String):void
+        public function set labelText(value:String):void
         {
             if (value == textField.text)
             {
                 return;
             }
             textField.text = value;
-            textField.height = textField.textHeight + 4;
             if (_autoSize)
             {
                 textField.width = textField.textWidth + 4;
+                textField.height = textField.textHeight + 4;
             }
         }
         //------------------------------
@@ -98,6 +163,7 @@ package org.xbones.bones
             if (_autoSize)
             {
                 textField.width = textField.textWidth + 4;
+                textField.height = textField.textHeight + 4;
             }
         }
     }

@@ -1,18 +1,19 @@
 package org.xbones.bones
 {
-    import org.xbones.core.IXBone;
+    import org.xbones.core.IXButton;
     import org.xbones.core.IXSkinner;
-    import org.xbones.skins.XReflectionSkin;
+    import org.xbones.skins.XReflectionSkinner;
 
     import flash.display.DisplayObject;
     import flash.display.Sprite;
     import flash.events.MouseEvent;
     import flash.filters.GlowFilter;
+    import flash.text.TextFormat;
     /**
      * The Button bone (control).
      * @author eidiot
      */
-    public class XButton extends Sprite implements IXBone
+    public class XButton extends Sprite implements IXButton
     {
         //======================================================================
         //  Class constants
@@ -71,9 +72,10 @@ package org.xbones.bones
             {
                 currentSkin.height = value;
             }
+            updateDisplay();
         }
         //======================================================================
-        //  Properties: IXBone
+        //  Properties: IXButton
         //======================================================================
         //------------------------------
         //  enabled
@@ -110,15 +112,12 @@ package org.xbones.bones
                 renderLabelToDisabled();
             }
         }
-        //======================================================================
-        //  Properties
-        //======================================================================
         //------------------------------
         //  labelText
         //------------------------------
         private var _labelText:String = "";
         /**
-         * Label text of the button.
+         * @inheritDoc
          */
         public function get labelText():String
         {
@@ -143,6 +142,25 @@ package org.xbones.bones
                 removeLabel();
             }
         }
+        //------------------------------
+        //  labelFormat
+        //------------------------------
+        public function get labelFormat():TextFormat
+        {
+            if (labelInstance)
+            {
+                return labelInstance.labelFormat;
+            }
+            return null;
+        }
+        public function set labelFormat(value:TextFormat):void
+        {
+            if (labelInstance)
+            {
+                labelInstance.labelFormat = value;
+                updateDisplay();
+            }
+        }
         //======================================================================
         //  Private methods
         //======================================================================
@@ -151,7 +169,7 @@ package org.xbones.bones
             skinner = value;
             if (!skinner)
             {
-                skinner = new XReflectionSkin(BoneName.XBUTTON);
+                skinner = new XReflectionSkinner(BoneName.XBUTTON);
             }
             updateSkin(skinner.upSkin);
         }
@@ -183,7 +201,7 @@ package org.xbones.bones
         {
             if (labelInstance)
             {
-                labelInstance.text = _labelText;
+                labelInstance.labelText = _labelText;
             }
             else
             {
@@ -239,6 +257,16 @@ package org.xbones.bones
             else
             {
                 labelInstance.x = (currentSkin.width - labelInstance.width) / 2;
+            }
+            const MAX_LABEL_HEIGHT:Number = currentSkin.height;
+            if (labelInstance.height > MAX_LABEL_HEIGHT)
+            {
+                labelInstance.y = 0;
+                labelInstance.height = MAX_LABEL_HEIGHT;
+            }
+            else
+            {
+                labelInstance.y = (currentSkin.height - labelInstance.height) / 2;
             }
         }
         private function checkMouseOver():Boolean

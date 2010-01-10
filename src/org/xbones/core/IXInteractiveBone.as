@@ -1,10 +1,10 @@
 package org.xbones.core
 {
     /**
-     * Interface for all the bones (ui controls).
+     * Interface for interactive bones.
      * @author eidiot
      */
-    public interface IXBone
+    public interface IXInteractiveBone
     {
         //======================================================================
         //  Properties

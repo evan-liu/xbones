@@ -1,14 +1,13 @@
 package org.xbones.skins
 {
-    import org.xbones.core.IXSkinner;
-
+	import org.xbones.core.IXSkinner;
     import flash.display.DisplayObject;
     import flash.system.ApplicationDomain;
     /**
      * Control skin use reflection.
      * @author eidiot
      */
-    public class XReflectionSkin implements IXSkinner
+    public class XReflectionSkinner implements IXSkinner
     {
         //======================================================================
         //  Constructor
@@ -19,8 +18,8 @@ package org.xbones.skins
          * @param applicationDomain <code>ApplicationDomain</code> to get definitions
          *                          of the skins.
          */
-        public function XReflectionSkin(boneName:String,
-                                    applicationDomain:ApplicationDomain = null)
+        public function XReflectionSkinner(boneName:String,
+                                     applicationDomain:ApplicationDomain = null)
         {
             if (!applicationDomain)
             {
@@ -84,7 +83,15 @@ package org.xbones.skins
         private function createSkin(applicationDomain:ApplicationDomain,
                                 skinName:String):DisplayObject
         {
+            if (!applicationDomain.hasDefinition(skinName))
+            {
+                return null;
+            }
             var skinClass:Class = applicationDomain.getDefinition(skinName) as Class;
+            if (!skinClass)
+            {
+                return null;
+            }
             return new skinClass() as DisplayObject;
         }
     }
