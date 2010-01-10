@@ -9,6 +9,6 @@ package org.xbones.bones
         /**
          * Name of the Button bone.
          */
-        public static const BUTTON:String = "Button";
+        public static const XBUTTON:String = "XButton";
     }
 }

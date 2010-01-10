@@ -1,12 +1,14 @@
 package
 {
     import org.xbones.bones.XButton;
+    import org.xbones.skins.includeXSkin;
 
+    import flash.display.Sprite;
     import flash.events.MouseEvent;
     /**
      * @author eidiot
      */
-    public class XButtonExample extends AbstractExample
+    public class XButtonExample extends Sprite
     {
         //======================================================================
         //  Constructor
@@ -14,17 +16,8 @@ package
         public function XButtonExample()
         {
             super();
-        }
-        //======================================================================
-        //  Variables
-        //======================================================================
-        private var plusButton:XButton;
-        private var minusButton:XButton;
-        //======================================================================
-        //  Overridden methods
-        //======================================================================
-        override protected function run():void
-        {
+            includeXSkin(XButtonSkins);
+            //
             plusButton = new XButton("Plus");
             minusButton = new XButton("Minus");
             addChild(plusButton);
@@ -37,6 +30,11 @@ package
             minusButton.addEventListener(MouseEvent.CLICK, button_clickHandler);
             minusButton.enabled = false;
         }
+        //======================================================================
+        //  Variables
+        //======================================================================
+        private var plusButton:XButton;
+        private var minusButton:XButton;
         //======================================================================
         //  Event handlers
         //======================================================================

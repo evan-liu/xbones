@@ -151,7 +151,7 @@ package org.xbones.bones
             skinner = value;
             if (!skinner)
             {
-                skinner = new XReflectionSkin(BoneName.BUTTON);
+                skinner = new XReflectionSkin(BoneName.XBUTTON);
             }
             updateSkin(skinner.upSkin);
         }
