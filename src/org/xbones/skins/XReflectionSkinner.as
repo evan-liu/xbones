@@ -30,6 +30,21 @@ package org.xbones.skins
             _overSkin = createSkin(applicationDomain, boneName + "_overSkin");
             _downSkin = createSkin(applicationDomain, boneName + "_downSkin");
             _disabledSkin = createSkin(applicationDomain, boneName + "_disabledSkin");
+            if (_upSkin)
+            {
+                if (!_overSkin)
+                {
+                    _overSkin = _upSkin;
+                }
+                if (!_downSkin)
+                {
+                    _downSkin = _upSkin;
+                }
+                if (!_disabledSkin)
+                {
+                    _disabledSkin = _upSkin;
+                }
+            }
         }
         //======================================================================
         //  Properties: IXBoneSkin
