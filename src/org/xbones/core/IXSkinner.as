@@ -1,6 +1,5 @@
 package org.xbones.core
 {
-    import flash.display.DisplayObject;
     /**
      * Interface for the skin set for a bone (ui control like a button)
      * or one of its states (like CheckBox).
@@ -13,32 +12,34 @@ package org.xbones.core
         //  Properties
         //======================================================================
         //------------------------------
-        //  upSkin
+        //  bone
         //------------------------------
         /**
-         * skin for the background and border when the mouse is not over the bone.
+         * The bone to be skinned.
          */
-        function get upSkin():DisplayObject;
-        //------------------------------
-        //  overSkin
-        //------------------------------
+        function get bone():IXWithSkinBone;
         /**
-         * skin for the background and border when the mouse is over the bone.
+         * @private
          */
-        function get overSkin():DisplayObject;
-        //------------------------------
-        //  downSkin
-        //------------------------------
+        function set bone(value:IXWithSkinBone):void;
+        //======================================================================
+        //  Public methods
+        //======================================================================
         /**
-         * skin for the background and border when the mouse button is down.
+         * Show the mouse up state.
          */
-        function get downSkin():DisplayObject;
-        //------------------------------
-        //  disabledSkin
-        //------------------------------
+        function up():void;
         /**
-         * skin for the background and border when the bone is disabled.
+         * Show the mouse over state.
          */
-        function get disabledSkin():DisplayObject;
+        function over():void;
+        /**
+         * Show the mouse down state.
+         */
+        function down():void;
+        /**
+         * Show the disabled state.
+         */
+        function disabled():void;
     }
 }

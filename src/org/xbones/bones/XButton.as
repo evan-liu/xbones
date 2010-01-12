@@ -3,6 +3,7 @@ package org.xbones.bones
     import org.xbones.core.IXInteractiveBone;
     import org.xbones.core.IXSkinner;
     import org.xbones.core.IXWithLabelBone;
+    import org.xbones.core.IXWithSkinBone;
     import org.xbones.skins.XReflectionSkinner;
 
     import flash.display.DisplayObject;
@@ -14,7 +15,8 @@ package org.xbones.bones
      * The Button bone (control).
      * @author eidiot
      */
-    public class XButton extends Sprite implements IXInteractiveBone, IXWithLabelBone
+    public class XButton extends Sprite implements IXWithSkinBone,
+                                        IXInteractiveBone, IXWithLabelBone
     {
         //======================================================================
         //  Class constants
@@ -53,7 +55,7 @@ package org.xbones.bones
         //------------------------------
         private var _width:Number = -1;
         /**
-         * @inheritDoc
+         * @private
          */
         override public function set width(value:Number):void
         {
@@ -69,7 +71,7 @@ package org.xbones.bones
         //------------------------------
         private var _height:Number = -1;
         /**
-         * @inheritDoc
+         * @private
          */
         override public function set height(value:Number):void
         {
@@ -107,13 +109,13 @@ package org.xbones.bones
             mouseEnabled = value;
             if (_enabled)
             {
-                updateSkin(checkMouseOver() ? skinner.overSkin : skinner.upSkin);
+                checkMouseOver() ? skinner.over() : skinner.up();
                 addHandlers();
                 renderLabelToEnabled();
             }
             else
             {
-                updateSkin(skinner.disabledSkin);
+                skinner.disabled();
                 removeHandlers();
                 renderLabelToDisabled();
             }
@@ -174,6 +176,13 @@ package org.xbones.bones
             }
         }
         //======================================================================
+        //  Public methods: IXWithSkinBone
+        //======================================================================
+        public function applySkin(skin:DisplayObject):void
+        {
+            updateSkin(skin);
+        }
+        //======================================================================
         //  Private methods
         //======================================================================
         private function initializeSkinner(value:IXSkinner):void
@@ -183,7 +192,8 @@ package org.xbones.bones
             {
                 skinner = new XReflectionSkinner(XBoneName.XBUTTON);
             }
-            updateSkin(skinner.upSkin);
+            skinner.bone = this;
+            skinner.up();
         }
         private function updateSkin(skin:DisplayObject):void
         {
@@ -199,10 +209,6 @@ package org.xbones.bones
                 }
             }
             currentSkin = skin;
-            if (!currentSkin)
-            {
-                currentSkin = skinner.upSkin;
-            }
             if (!currentSkin) {
                 return;
             }
@@ -309,7 +315,7 @@ package org.xbones.bones
         {
             if (_enabled)
             {
-                updateSkin(skinner.overSkin);
+                skinner.over();
                 addEventListener(MouseEvent.ROLL_OUT, rollOutHandler);
             }
         }
@@ -318,7 +324,7 @@ package org.xbones.bones
             removeEventListener(MouseEvent.ROLL_OUT, rollOutHandler);
             if (_enabled)
             {
-                updateSkin(skinner.upSkin);
+                skinner.up();
             }
         }
         private function mouseUpHandler(event:MouseEvent):void
@@ -326,14 +332,14 @@ package org.xbones.bones
             if (_enabled)
             {
                 stage.removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-                updateSkin(checkMouseOver() ? skinner.overSkin : skinner.upSkin);
+                checkMouseOver() ? skinner.over() : skinner.up();
             }
         }
         private function mouseDownHandler(event:MouseEvent):void
         {
             if (_enabled)
             {
-                updateSkin(skinner.downSkin);
+                skinner.down();
             }
             stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
         }

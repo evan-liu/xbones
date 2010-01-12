@@ -1,11 +1,12 @@
 package org.xbones.skins
 {
     import org.xbones.core.IXSkinner;
+    import org.xbones.core.IXWithSkinBone;
 
     import flash.display.DisplayObject;
     import flash.system.ApplicationDomain;
     /**
-     * Control skin use reflection.
+     * Skinnerø use reflection.
      * @author eidiot
      */
     public class XReflectionSkinner implements IXSkinner
@@ -50,11 +51,32 @@ package org.xbones.skins
         //  Properties: IXBoneSkin
         //======================================================================
         //------------------------------
+        //  bone
+        //------------------------------
+        private var _bone:IXWithSkinBone;
+        /**
+         * @inheritDoc
+         */
+        public function get bone():IXWithSkinBone
+        {
+            return _bone;
+        }
+        /**
+         * @private
+         */
+        public function set bone(value:IXWithSkinBone):void
+        {
+            _bone = value;
+        }
+        //======================================================================
+        //  Properties
+        //======================================================================
+        //------------------------------
         //  upSkin
         //------------------------------
         private var _upSkin:DisplayObject;
         /**
-         * @inheritDoc
+         * Skin of the mouse up state
          */
         public function get upSkin():DisplayObject
         {
@@ -65,7 +87,7 @@ package org.xbones.skins
         //------------------------------
         private var _overSkin:DisplayObject;
         /**
-         * @inheritDoc
+         * Skin of the mouse over state
          */
         public function get overSkin():DisplayObject
         {
@@ -76,7 +98,7 @@ package org.xbones.skins
         //------------------------------
         private var _downSkin:DisplayObject;
         /**
-         * @inheritDoc
+         * Skin of the mouse down skin.
          */
         public function get downSkin():DisplayObject
         {
@@ -87,11 +109,54 @@ package org.xbones.skins
         //------------------------------
         private var _disabledSkin:DisplayObject;
         /**
-         * @inheritDoc
+         * Skin of the disabled skin.
          */
         public function get disabledSkin():DisplayObject
         {
             return _disabledSkin;
+        }
+        //======================================================================
+        //  Public methods
+        //======================================================================
+        /**
+         * @inheritDoc
+         */
+        public function up():void
+        {
+            if (_bone && _upSkin)
+            {
+                _bone.applySkin(_upSkin);
+            }
+        }
+        /**
+         * @inheritDoc
+         */
+        public function over():void
+        {
+            if (_bone && _overSkin)
+            {
+                _bone.applySkin(_overSkin);
+            }
+        }
+        /**
+         * @inheritDoc
+         */
+        public function down():void
+        {
+            if (_bone && _downSkin)
+            {
+                _bone.applySkin(_downSkin);
+            }
+        }
+        /**
+         * @inheritDoc
+         */
+        public function disabled():void
+        {
+            if (_bone && _disabledSkin)
+            {
+                _bone.applySkin(_disabledSkin);
+            }
         }
         //======================================================================
         //  Private methods

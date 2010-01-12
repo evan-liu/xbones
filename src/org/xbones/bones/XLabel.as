@@ -43,6 +43,9 @@ package org.xbones.bones
         //  width
         //------------------------------
         private var _width:Number = -1;
+        /**
+         * @private
+         */
         override public function set width(value:Number):void
         {
             if (value == _width)
@@ -64,6 +67,9 @@ package org.xbones.bones
         //  height
         //------------------------------
         private var _height:Number = -1;
+        /**
+         * @private
+         */
         override public function set height(value:Number):void
         {
             if (value == _height)
