@@ -213,6 +213,8 @@ package org.xbones.bones
                 return;
             }
             addChildAt(currentSkin, 0);
+            currentSkin.x = 0;
+            currentSkin.y = 0;
             if (_width >= 0)
             {
                 currentSkin.width = _width;
