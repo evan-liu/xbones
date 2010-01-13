@@ -5,6 +5,7 @@ package org.xbones.skins
 
     import flash.display.MovieClip;
     /**
+     * Skinner use frames of a MovieClip.
      * @author eidiot
      */
     public class XFrameSkinner implements IXSkinner
@@ -29,15 +30,15 @@ package org.xbones.skins
         //======================================================================
         //  Variables
         //======================================================================
-        private var movie:MovieClip;
-        private var upFrame:int;
-        private var overFrame:int;
-        private var downFrame:int;
-        private var disabledFrame:int;
+        protected var movie:MovieClip;
+        protected var upFrame:int;
+        protected var overFrame:int;
+        protected var downFrame:int;
+        protected var disabledFrame:int;
         //======================================================================
         //  Properties: IXSkinner
         //======================================================================
-        private var _bone:IXWithSkinBone;
+        protected var _bone:IXWithSkinBone;
         /**
          * @inheritDoc
          */
