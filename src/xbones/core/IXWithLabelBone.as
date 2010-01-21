@@ -22,7 +22,7 @@ package xbones.core
          */
         function set labelText(value:String):void;
         //------------------------------
-        //  format
+        //  labelFormat
         //------------------------------
         /**
          * Text format of the label.

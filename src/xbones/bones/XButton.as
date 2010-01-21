@@ -1,9 +1,9 @@
 package xbones.bones
 {
-    import xbones.core.IXWithSkinBone;
     import xbones.core.IXInteractiveBone;
-    import xbones.core.IXWithLabelBone;
     import xbones.core.IXSkinner;
+    import xbones.core.IXWithLabelBone;
+    import xbones.core.IXWithSkinBone;
     import xbones.skins.XReflectionSkinner;
 
     import flash.display.DisplayObject;
@@ -28,16 +28,25 @@ package xbones.bones
         //======================================================================
         /**
          * Construct a <code>XButton</code>.
-         * @param label     Label text of the button bone.
-         * @param skinner   Skinner of the Button bone.
+         * @param label                 Label text of the button bone.
+         * @param skinner               Skinner of the Button bone.
+         * @param labelFormat           Format of the label.
+         * @param labelInstanceOrClass  XLabel instance or class for the label.
          */
-        public function XButton(label:String = "", skinner:IXSkinner = null)
+        public function XButton(label:String = "", skinner:IXSkinner = null,
+                                labelFormat:TextFormat = null)
         {
             super();
             initializeSkinner(skinner);
-            labelText = label;
+            if (labelFormat)
+            {
+                labelInstance = new XLabel(label, labelFormat);
+            }
+            else
+            {
+                labelText = label;
+            }
             enabled = true;
-            //
             buttonMode = true;
             mouseChildren = false;
         }
@@ -160,7 +169,7 @@ package xbones.bones
         {
             if (labelInstance)
             {
-                return labelInstance.labelFormat;
+                return labelInstance.format;
             }
             return null;
         }
@@ -171,8 +180,12 @@ package xbones.bones
         {
             if (labelInstance)
             {
-                labelInstance.labelFormat = value;
+                labelInstance.format = value;
                 updateDisplay();
+            }
+            else
+            {
+                labelInstance = new XLabel("", value);
             }
         }
         //======================================================================
@@ -209,7 +222,8 @@ package xbones.bones
                 }
             }
             currentSkin = skin;
-            if (!currentSkin) {
+            if (!currentSkin)
+            {
                 return;
             }
             addChildAt(currentSkin, 0);
@@ -228,7 +242,7 @@ package xbones.bones
         {
             if (labelInstance)
             {
-                labelInstance.labelText = _labelText;
+                labelInstance.text = _labelText;
             }
             else
             {

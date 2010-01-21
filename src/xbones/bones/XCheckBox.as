@@ -143,7 +143,7 @@ package xbones.bones
         {
             if (labelInstance)
             {
-                return labelInstance.labelText;
+                return labelInstance.text;
             }
             return "";
         }
@@ -154,7 +154,7 @@ package xbones.bones
         {
             if (labelInstance)
             {
-                labelInstance.labelText = value;
+                labelInstance.text = value;
             }
             else
             {
@@ -173,7 +173,7 @@ package xbones.bones
         {
             if (labelInstance)
             {
-                return labelInstance.labelFormat;
+                return labelInstance.format;
             }
             return null;
         }
@@ -184,7 +184,7 @@ package xbones.bones
         {
             if (labelInstance)
             {
-                labelInstance.labelFormat = value;
+                labelInstance.format = value;
                 updateDisplay();
             }
         }

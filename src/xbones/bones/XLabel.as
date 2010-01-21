@@ -1,7 +1,5 @@
 package xbones.bones
 {
-    import xbones.core.IXWithLabelBone;
-
     import flash.display.Sprite;
     import flash.text.TextField;
     import flash.text.TextFormat;
@@ -9,7 +7,7 @@ package xbones.bones
      * The Label bone for displaying a single line of text.
      * @author eidiot
      */
-    public class XLabel extends Sprite implements IXWithLabelBone
+    public class XLabel extends Sprite
     {
         //======================================================================
         //  Constructor
@@ -23,12 +21,11 @@ package xbones.bones
             super();
             textField = new TextField();
             addChild(textField);
-            _labelFormat = format;
-            if (!_labelFormat)
+            if (format)
             {
-                _labelFormat = new TextFormat();
+                textField.defaultTextFormat = format;
             }
-            this.labelText = text;
+            this.text = text;
             mouseEnabled = false;
             mouseChildren = false;
         }
@@ -91,28 +88,26 @@ package xbones.bones
         //  Properties
         //======================================================================
         //------------------------------
-        //  labelFormat
+        //  format
         //------------------------------
-        private var _labelFormat:TextFormat;
         /**
          * @inheritDoc
          */
-        public function get labelFormat():TextFormat
+        public function get format():TextFormat
         {
-            return _labelFormat;
+            return textField.defaultTextFormat;
         }
         /**
          * @private
          */
-        public function set labelFormat(value:TextFormat):void
+        public function set format(value:TextFormat):void
         {
-            if (!value || value == _labelFormat)
+            if (!value || value == format)
             {
                 return;
             }
-            _labelFormat = value;
-            textField.defaultTextFormat = _labelFormat;
-            textField.setTextFormat(_labelFormat);
+            textField.defaultTextFormat = value;
+            textField.setTextFormat(value);
             if (_autoSize)
             {
                 textField.width = textField.textWidth + 4;
@@ -120,19 +115,19 @@ package xbones.bones
             }
         }
         //------------------------------
-        //  labelText
+        //  text
         //------------------------------
         /**
          * @inheritDoc
          */
-        public function get labelText():String
+        public function get text():String
         {
             return textField.text;
         }
         /**
          * @private
          */
-        public function set labelText(value:String):void
+        public function set text(value:String):void
         {
             if (value == textField.text)
             {
