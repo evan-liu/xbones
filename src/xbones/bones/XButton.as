@@ -21,8 +21,8 @@ package xbones.bones
         //======================================================================
         //  Class constants
         //======================================================================
-        private static const LABEL_MARGIN:int = 2;
-        private static const LABEL_DISABLED_ALPHA:Number = 0.3;
+        protected static const LABEL_MARGIN:int = 2;
+        protected static const LABEL_DISABLED_ALPHA:Number = 0.3;
         //======================================================================
         //  Constructor
         //======================================================================
@@ -51,18 +51,18 @@ package xbones.bones
         //======================================================================
         //  Variables
         //======================================================================
-        private var skinner:IXSkinner;
-        private var currentSkin:DisplayObject;
-        private var labelInstance:XLabel;
+        protected var skinner:IXSkinner;
+        protected var currentSkin:DisplayObject;
+        protected var labelInstance:XLabel;
         //======================================================================
         //  Overridden properties: DisplayObject
         //======================================================================
         //------------------------------
         //  width
         //------------------------------
-        private var _width:Number = -1;
+        protected var _width:Number = -1;
         /**
-         * @private
+         * @protected
          */
         override public function set width(value:Number):void
         {
@@ -76,9 +76,9 @@ package xbones.bones
         //------------------------------
         //  height
         //------------------------------
-        private var _height:Number = -1;
+        protected var _height:Number = -1;
         /**
-         * @private
+         * @protected
          */
         override public function set height(value:Number):void
         {
@@ -95,7 +95,7 @@ package xbones.bones
         //------------------------------
         //  enabled
         //------------------------------
-        private var _enabled:Boolean = false;
+        protected var _enabled:Boolean = false;
         /**
          * @inheritDoc
          */
@@ -104,7 +104,7 @@ package xbones.bones
             return _enabled;
         }
         /**
-         * @private
+         * @protected
          */
         public function set enabled(value:Boolean):void
         {
@@ -130,7 +130,7 @@ package xbones.bones
         //------------------------------
         //  labelText
         //------------------------------
-        private var _labelText:String = "";
+        protected var _labelText:String = "";
         /**
          * @inheritDoc
          */
@@ -139,7 +139,7 @@ package xbones.bones
             return _labelText;
         }
         /**
-         * @private
+         * @protected
          */
         public function set labelText(value:String):void
         {
@@ -172,7 +172,7 @@ package xbones.bones
             return null;
         }
         /**
-         * @private
+         * @protected
          */
         public function set labelFormat(value:TextFormat):void
         {
@@ -201,7 +201,7 @@ package xbones.bones
         //======================================================================
         //  Private methods
         //======================================================================
-        private function initializeSkinner(value:IXSkinner):void
+        protected function initializeSkinner(value:IXSkinner):void
         {
             skinner = value;
             if (!skinner)
@@ -211,7 +211,7 @@ package xbones.bones
             skinner.bone = this;
             skinner.up();
         }
-        private function initializeLabel(format:TextFormat,
+        protected function initializeLabel(format:TextFormat,
                                          labelClassOrInstance:*):void
         {
             if (labelClassOrInstance)
@@ -234,7 +234,7 @@ package xbones.bones
                 labelInstance = new XLabel("", format);
             }
         }
-        private function updateSkin(skin:DisplayObject):void
+        protected function updateSkin(skin:DisplayObject):void
         {
             if (currentSkin)
             {
@@ -264,7 +264,7 @@ package xbones.bones
                 currentSkin.height = _height;
             }
         }
-        private function updateLabel():void
+        protected function updateLabel():void
         {
             if (labelInstance)
             {
@@ -284,14 +284,14 @@ package xbones.bones
             }
             updateDisplay();
         }
-        private function removeLabel():void
+        protected function removeLabel():void
         {
             if (labelInstance && labelInstance.parent)
             {
                 labelInstance.parent.removeChild(labelInstance);
             }
         }
-        private function updateDisplay():void
+        protected function updateDisplay():void
         {
             if (!currentSkin || !labelInstance)
             {
@@ -320,7 +320,7 @@ package xbones.bones
                 labelInstance.y = (currentSkin.height - labelInstance.height) / 2;
             }
         }
-        private function renderLabelToDisabled():void
+        protected function renderLabelToDisabled():void
         {
             if (labelInstance)
             {
@@ -328,7 +328,7 @@ package xbones.bones
                 labelInstance.alpha = LABEL_DISABLED_ALPHA;
             }
         }
-        private function renderLabelToEnabled():void
+        protected function renderLabelToEnabled():void
         {
             if (labelInstance)
             {
@@ -336,16 +336,16 @@ package xbones.bones
                 labelInstance.alpha = 1;
             }
         }
-        private function checkMouseOver():Boolean
+        protected function checkMouseOver():Boolean
         {
             return stage && hitTestPoint(stage.mouseX, stage.mouseY);
         }
-        private function addHandlers():void
+        protected function addHandlers():void
         {
             addEventListener(MouseEvent.ROLL_OVER, rollOverHandler);
             addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
         }
-        private function removeHandlers():void
+        protected function removeHandlers():void
         {
             removeEventListener(MouseEvent.ROLL_OVER, rollOverHandler);
             removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
@@ -353,7 +353,7 @@ package xbones.bones
         //======================================================================
         //  Event handlers
         //======================================================================
-        private function rollOverHandler(event:MouseEvent):void
+        protected function rollOverHandler(event:MouseEvent):void
         {
             if (_enabled)
             {
@@ -361,7 +361,7 @@ package xbones.bones
                 addEventListener(MouseEvent.ROLL_OUT, rollOutHandler);
             }
         }
-        private function rollOutHandler(event:MouseEvent):void
+        protected function rollOutHandler(event:MouseEvent):void
         {
             removeEventListener(MouseEvent.ROLL_OUT, rollOutHandler);
             if (_enabled)
@@ -369,7 +369,7 @@ package xbones.bones
                 skinner.up();
             }
         }
-        private function mouseUpHandler(event:MouseEvent):void
+        protected function mouseUpHandler(event:MouseEvent):void
         {
             if (_enabled)
             {
@@ -377,7 +377,7 @@ package xbones.bones
                 checkMouseOver() ? skinner.over() : skinner.up();
             }
         }
-        private function mouseDownHandler(event:MouseEvent):void
+        protected function mouseDownHandler(event:MouseEvent):void
         {
             if (_enabled)
             {

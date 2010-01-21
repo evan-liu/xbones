@@ -32,16 +32,16 @@ package xbones.bones
         //======================================================================
         //  Variables
         //======================================================================
-        private var textField:TextField;
+        protected var textField:TextField;
         //======================================================================
         //  Overridden properties: DisplayObject
         //======================================================================
         //------------------------------
         //  width
         //------------------------------
-        private var _width:Number = -1;
+        protected var _width:Number = -1;
         /**
-         * @private
+         * @protected
          */
         override public function set width(value:Number):void
         {
@@ -63,9 +63,9 @@ package xbones.bones
         //------------------------------
         //  height
         //------------------------------
-        private var _height:Number = -1;
+        protected var _height:Number = -1;
         /**
-         * @private
+         * @protected
          */
         override public function set height(value:Number):void
         {
@@ -98,7 +98,7 @@ package xbones.bones
             return textField.text;
         }
         /**
-         * @private
+         * @protected
          */
         public function set text(value:String):void
         {
@@ -124,7 +124,7 @@ package xbones.bones
             return textField.defaultTextFormat;
         }
         /**
-         * @private
+         * @protected
          */
         public function set format(value:TextFormat):void
         {
@@ -143,7 +143,7 @@ package xbones.bones
         //------------------------------
         //  autoSize
         //------------------------------
-        private var _autoSize:Boolean = true;
+        protected var _autoSize:Boolean = true;
         /**
          * whether or not this Label will autosize.
          */
@@ -152,7 +152,7 @@ package xbones.bones
             return _autoSize;
         }
         /**
-         * @private
+         * @protected
          */
         public function set autoSize(value:Boolean):void
         {
