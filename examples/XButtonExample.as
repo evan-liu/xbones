@@ -42,9 +42,8 @@ package
             longButton.y = shortButton.y;
             longButton.width = 140;
             //-- Format example
-            var bigButton:XButton = new XButton("BIG");
+            var bigButton:XButton = new XButton("BIG", null, new TextFormat(null, 30));
             addChild(bigButton);
-            bigButton.labelFormat = new TextFormat(null, 30);
             bigButton.x = 10;
             bigButton.y = 100;
             bigButton.height = 50;

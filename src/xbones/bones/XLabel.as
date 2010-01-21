@@ -88,6 +88,32 @@ package xbones.bones
         //  Properties
         //======================================================================
         //------------------------------
+        //  text
+        //------------------------------
+        /**
+         * @inheritDoc
+         */
+        public function get text():String
+        {
+            return textField.text;
+        }
+        /**
+         * @private
+         */
+        public function set text(value:String):void
+        {
+            if (value == textField.text)
+            {
+                return;
+            }
+            textField.text = value;
+            if (_autoSize)
+            {
+                textField.width = textField.textWidth + 4;
+                textField.height = textField.textHeight + 4;
+            }
+        }
+        //------------------------------
         //  format
         //------------------------------
         /**
@@ -108,32 +134,6 @@ package xbones.bones
             }
             textField.defaultTextFormat = value;
             textField.setTextFormat(value);
-            if (_autoSize)
-            {
-                textField.width = textField.textWidth + 4;
-                textField.height = textField.textHeight + 4;
-            }
-        }
-        //------------------------------
-        //  text
-        //------------------------------
-        /**
-         * @inheritDoc
-         */
-        public function get text():String
-        {
-            return textField.text;
-        }
-        /**
-         * @private
-         */
-        public function set text(value:String):void
-        {
-            if (value == textField.text)
-            {
-                return;
-            }
-            textField.text = value;
             if (_autoSize)
             {
                 textField.width = textField.textWidth + 4;

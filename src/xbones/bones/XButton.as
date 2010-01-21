@@ -31,21 +31,19 @@ package xbones.bones
          * @param label                 Label text of the button bone.
          * @param skinner               Skinner of the Button bone.
          * @param labelFormat           Format of the label.
-         * @param labelInstanceOrClass  XLabel instance or class for the label.
+         * @param labelClassOrInstance  XLabel class or instance for the label.
          */
         public function XButton(label:String = "", skinner:IXSkinner = null,
-                                labelFormat:TextFormat = null)
+                                labelFormat:TextFormat = null,
+                                labelClassOrInstance:* = null)
         {
             super();
             initializeSkinner(skinner);
-            if (labelFormat)
+            if (labelFormat || labelClassOrInstance)
             {
-                labelInstance = new XLabel(label, labelFormat);
+                initializeLabel(labelFormat, labelClassOrInstance);
             }
-            else
-            {
-                labelText = label;
-            }
+            labelText = label;
             enabled = true;
             buttonMode = true;
             mouseChildren = false;
@@ -178,14 +176,19 @@ package xbones.bones
          */
         public function set labelFormat(value:TextFormat):void
         {
-            if (labelInstance)
-            {
-                labelInstance.format = value;
-                updateDisplay();
-            }
-            else
+            if (!labelInstance)
             {
                 labelInstance = new XLabel("", value);
+                return;
+            }
+            if (labelInstance.format == value)
+            {
+                return;
+            }
+            labelInstance.format = value;
+            if (labelInstance.text)
+            {
+                updateDisplay();
             }
         }
         //======================================================================
@@ -207,6 +210,29 @@ package xbones.bones
             }
             skinner.bone = this;
             skinner.up();
+        }
+        private function initializeLabel(format:TextFormat,
+                                         labelClassOrInstance:*):void
+        {
+            if (labelClassOrInstance)
+            {
+                if (labelClassOrInstance is XLabel)
+                {
+                    labelInstance = labelClassOrInstance;
+                }
+                else if (labelClassOrInstance is Class)
+                {
+                    labelInstance = new labelClassOrInstance() as XLabel;
+                }
+            }
+            if (labelInstance)
+            {
+                labelInstance.format = format;
+            }
+            else
+            {
+                labelInstance = new XLabel("", format);
+            }
         }
         private function updateSkin(skin:DisplayObject):void
         {
