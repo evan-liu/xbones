@@ -1,7 +1,7 @@
-package org.xbones.skins
+package xbones.skins
 {
-    import org.xbones.core.IXSelectableSkinner;
-    import org.xbones.core.IXSkinner;
+    import xbones.core.IXSkinner;
+    import xbones.core.IXSelectableSkinner;
 
     import flash.system.ApplicationDomain;
     /**

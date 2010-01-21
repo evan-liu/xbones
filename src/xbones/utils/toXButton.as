@@ -1,8 +1,8 @@
-package org.xbones.utils
+package xbones.utils
 {
-    import org.xbones.bones.XButton;
-    import org.xbones.core.IXSkinner;
-    import org.xbones.skins.XFrameSkinner;
+    import xbones.bones.XButton;
+    import xbones.core.IXSkinner;
+    import xbones.skins.XFrameSkinner;
 
     import flash.display.DisplayObjectContainer;
     import flash.display.MovieClip;

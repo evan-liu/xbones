@@ -1,4 +1,4 @@
-package org.xbones.bones
+package xbones.bones
 {
     /**
      * Enumeration for bone names.

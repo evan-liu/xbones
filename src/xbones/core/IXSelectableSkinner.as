@@ -1,4 +1,4 @@
-package org.xbones.core
+package xbones.core
 {
     /**
      * Interface of skinner for selectable bones.

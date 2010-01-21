@@ -1,6 +1,6 @@
-package org.xbones.bones
+package xbones.bones
 {
-    import org.xbones.core.IXWithLabelBone;
+    import xbones.core.IXWithLabelBone;
 
     import flash.display.Sprite;
     import flash.text.TextField;

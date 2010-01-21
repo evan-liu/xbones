@@ -1,4 +1,4 @@
-package org.xbones.skins
+package xbones.skins
 {
     import flash.display.FrameLabel;
     import flash.display.MovieClip;

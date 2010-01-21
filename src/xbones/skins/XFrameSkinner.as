@@ -1,7 +1,7 @@
-package org.xbones.skins
+package xbones.skins
 {
-    import org.xbones.core.IXSkinner;
-    import org.xbones.core.IXWithSkinBone;
+    import xbones.core.IXWithSkinBone;
+    import xbones.core.IXSkinner;
 
     import flash.display.MovieClip;
     /**

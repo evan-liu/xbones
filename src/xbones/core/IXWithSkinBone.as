@@ -1,4 +1,4 @@
-package org.xbones.core
+package xbones.core
 {
     import flash.display.DisplayObject;
     /**

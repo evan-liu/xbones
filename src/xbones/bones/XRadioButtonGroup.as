@@ -1,7 +1,7 @@
-package org.xbones.bones
+package xbones.bones
 {
-    import org.xbones.core.IXBoneGroup;
-    import org.xbones.core.IXSelectableBone;
+    import xbones.core.IXBoneGroup;
+    import xbones.core.IXSelectableBone;
 
     import flash.events.Event;
     import flash.events.EventDispatcher;

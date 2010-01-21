@@ -1,4 +1,4 @@
-package org.xbones.skins
+package xbones.skins
 {
     /**
      * To include skins for all xbones.

@@ -1,7 +1,7 @@
 package
 {
-    import org.xbones.bones.XButton;
-    import org.xbones.skins.includeXSkin;
+    import xbones.bones.XButton;
+    import xbones.skins.includeXSkin;
 
     import flash.display.Sprite;
     import flash.events.MouseEvent;

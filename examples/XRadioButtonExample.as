@@ -1,8 +1,8 @@
 package
 {
-    import org.xbones.bones.XRadioButton;
-    import org.xbones.bones.XRadioButtonGroup;
-    import org.xbones.skins.includeXSkin;
+    import xbones.bones.XRadioButton;
+    import xbones.bones.XRadioButtonGroup;
+    import xbones.skins.includeXSkin;
 
     import flash.display.Sprite;
     import flash.events.Event;

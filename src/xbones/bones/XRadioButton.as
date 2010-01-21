@@ -1,12 +1,12 @@
-package org.xbones.bones
+package xbones.bones
 {
-    import org.xbones.core.IXInteractiveBone;
-    import org.xbones.core.IXSelectableBone;
-    import org.xbones.core.IXSelectableSkinner;
-    import org.xbones.core.IXSkinner;
-    import org.xbones.core.IXWithLabelBone;
-    import org.xbones.core.IXWithSkinBone;
-    import org.xbones.skins.XReflectionSelectableSkinner;
+    import xbones.core.IXSelectableSkinner;
+    import xbones.core.IXWithSkinBone;
+    import xbones.core.IXWithLabelBone;
+    import xbones.core.IXSkinner;
+    import xbones.core.IXSelectableBone;
+    import xbones.core.IXInteractiveBone;
+    import xbones.skins.XReflectionSelectableSkinner;
 
     import flash.display.DisplayObject;
     import flash.display.Sprite;

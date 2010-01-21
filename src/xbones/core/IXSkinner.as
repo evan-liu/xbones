@@ -1,4 +1,4 @@
-package org.xbones.core
+package xbones.core
 {
     /**
      * Interface for the skin set for a bone (ui control like a button)
