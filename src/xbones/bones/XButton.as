@@ -62,7 +62,7 @@ package xbones.bones
         //------------------------------
         protected var _width:Number = -1;
         /**
-         * @protected
+         * @private
          */
         override public function set width(value:Number):void
         {
@@ -78,7 +78,7 @@ package xbones.bones
         //------------------------------
         protected var _height:Number = -1;
         /**
-         * @protected
+         * @private
          */
         override public function set height(value:Number):void
         {
@@ -104,7 +104,7 @@ package xbones.bones
             return _enabled;
         }
         /**
-         * @protected
+         * @private
          */
         public function set enabled(value:Boolean):void
         {
@@ -139,7 +139,7 @@ package xbones.bones
             return _labelText;
         }
         /**
-         * @protected
+         * @private
          */
         public function set labelText(value:String):void
         {
@@ -172,7 +172,7 @@ package xbones.bones
             return null;
         }
         /**
-         * @protected
+         * @private
          */
         public function set labelFormat(value:TextFormat):void
         {

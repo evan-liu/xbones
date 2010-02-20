@@ -41,7 +41,7 @@ package xbones.bones
         //------------------------------
         protected var _width:Number = -1;
         /**
-         * @protected
+         * @private
          */
         override public function set width(value:Number):void
         {
@@ -65,7 +65,7 @@ package xbones.bones
         //------------------------------
         protected var _height:Number = -1;
         /**
-         * @protected
+         * @private
          */
         override public function set height(value:Number):void
         {
@@ -98,7 +98,7 @@ package xbones.bones
             return textField.text;
         }
         /**
-         * @protected
+         * @private
          */
         public function set text(value:String):void
         {
@@ -124,7 +124,7 @@ package xbones.bones
             return textField.defaultTextFormat;
         }
         /**
-         * @protected
+         * @private
          */
         public function set format(value:TextFormat):void
         {
@@ -152,7 +152,7 @@ package xbones.bones
             return _autoSize;
         }
         /**
-         * @protected
+         * @private
          */
         public function set autoSize(value:Boolean):void
         {
